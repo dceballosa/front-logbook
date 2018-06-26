@@ -52,8 +52,11 @@ public class Note {
         this.content = content;
     }
 
-    public String getSummary() {
-        // not implemented
-        return "";
+    public  String getSummary(){
+        if (getContent().length()<15){
+            return getContent();
+        }else{
+            return getContent().substring(0,15);
+        }
     }
 }
