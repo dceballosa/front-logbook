@@ -2,6 +2,8 @@ package com.rgfp.psd.logbook.domain;
 
 import org.junit.Test;
 
+import java.time.LocalDateTime;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
@@ -76,5 +78,17 @@ public class NoteTest {
         // Assert
         assertEquals("Compras semanal", result1);
         assertEquals("Para pagar el l", result2);
+    }
+
+    @Test
+    public void cuandoClonoUnaTareaLaTareaSeCopia() {
+
+        // Arrange
+        Note note = new Note();
+        // Act
+        Note noteCopia = note.clone();
+        // Assert
+        assertEquals(note.getTitle(), noteCopia.getTitle());
+        assertEquals(note.getContent(), noteCopia.getContent());
     }
 }

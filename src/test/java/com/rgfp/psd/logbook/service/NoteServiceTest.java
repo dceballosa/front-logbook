@@ -7,6 +7,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
@@ -97,6 +98,7 @@ public class NoteServiceTest {
         Note savedNote = noteService.getAllNotes().get(indexOf);
 
         assertNotNull(savedNote.getTimestamp());
+        //assertEquals(LocalDateTime.now(), savedNote.getTimestamp());
 
         // tear down
         notes.remove(note);
@@ -116,5 +118,4 @@ public class NoteServiceTest {
         // tear down
         notes.add(n2);
     }
-
 }

@@ -59,4 +59,11 @@ public class Note {
             return getContent().substring(0,15);
         }
     }
+
+    public Note clone(){
+        Note noteCopia = new Note();
+        noteCopia.setTitle(this.getTitle());
+        noteCopia.setContent(this.getContent());
+        return noteCopia;
+    }
 }

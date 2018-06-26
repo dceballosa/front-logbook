@@ -58,7 +58,7 @@ public class NoteController {
     // clones a note. creating a new one
     @RequestMapping(value={"/noteClone","/noteClone/{id}"}, method = RequestMethod.GET)
     public String noteClone(Model model, @PathVariable(name = "id") Long id) {
-        // not implemented
+        noteService.cloneNote(id);
         model.addAttribute("noteList", noteService.findAll());
         return "noteList";
 
