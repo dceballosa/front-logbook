@@ -18,6 +18,7 @@ public class LogbookApplicationTests {
 
 	@Test
 	public void contextLoads() {
+
 		assertNotNull(noteService);
 	}
 
