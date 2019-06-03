@@ -46,8 +46,8 @@ jacocoTestReport {
 sonarqube {
 	properties {
 		property "sonar.host.url", "https://sonarcloud.io"
-		property "sonar.projectName", "LogBookAppDc"
-		property 'sonar.login','2c822ff7651c14ea4d4a46927927006bdb77e33a'
+		property "sonar.projectName", "FrontLogbook"
+		property 'sonar.login','c3de6799dd692256ac2284484659010bb4680ec4'
 		property "sonar.organization", "dceballosa_curso"
 		property "sonar.java.source", "8"
 		property "sonar.issuesReport.html.enable", "true"
