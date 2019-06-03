@@ -1,23 +1,15 @@
 package com.rgfp.psd.logbook.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "notes")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Note {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String title;
     private LocalDateTime timestamp;
-    @Column(length=10000)
     private String content;
 
     public void setTimestamp(LocalDateTime timestamp) {
@@ -58,12 +50,5 @@ public class Note {
         }else{
             return getContent().substring(0,15);
         }
-    }
-
-    public Note clone(){
-        Note noteCopia = new Note();
-        noteCopia.setTitle(this.getTitle());
-        noteCopia.setContent(this.getContent());
-        return noteCopia;
     }
 }
