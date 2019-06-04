@@ -1,6 +1,7 @@
 package com.rgfp.psd.logbook.controller;
 
 import com.rgfp.psd.logbook.domain.Note;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,12 +15,15 @@ import java.util.List;
 @Controller
 public class NoteController {
 
+    @Value("${end-point.api-logbook.note}")
+    private String endpoint;
+
     // displays all notes
     @RequestMapping(value={"/", "notes"})
     public String noteList(Model model, @RequestParam(required = false, name = "filter") String filter) {
         // filter feature not yet implemented
         RestTemplate restTemplate = new RestTemplate();
-        List<Note> notes = restTemplate.getForObject("http://localhost:8080/notes", List.class);
+        List<Note> notes = restTemplate.getForObject(endpoint, List.class);
         model.addAttribute("noteList", notes);
         return "noteList";
     }
@@ -28,7 +32,7 @@ public class NoteController {
     @RequestMapping(value={"noteView/{id}"}, method = RequestMethod.GET)
     public String noteView(Model model, @PathVariable(name = "id") Long id) {
         RestTemplate restTemplate = new RestTemplate();
-        Note note = restTemplate.getForObject("http://localhost:8080/notes/"+id, Note.class);
+        Note note = restTemplate.getForObject(endpoint+"/notes/"+id, Note.class);
         model.addAttribute("note", note);
         return "noteView";
     }
@@ -38,7 +42,7 @@ public class NoteController {
     public String noteEditForm(Model model, @PathVariable(required = false, name = "id") Long id) {
         if (null != id) {
             RestTemplate restTemplate = new RestTemplate();
-            Note note = restTemplate.getForObject("http://localhost:8080/notes/"+id, Note.class);
+            Note note = restTemplate.getForObject(endpoint+"/notes/"+id, Note.class);
             model.addAttribute("note", note);
         } else {
             model.addAttribute("note", new Note());
@@ -50,8 +54,8 @@ public class NoteController {
     @RequestMapping(value="/noteEdit", method = RequestMethod.POST)
     public String noteEdit(Model model, Note note) {
         RestTemplate restTemplate = new RestTemplate();
-        String response = restTemplate.postForObject("http://localhost:8080/notes", note, String.class);
-        List<Note> notes = restTemplate.getForObject("http://localhost:8080/notes", List.class);
+        String response = restTemplate.postForObject(endpoint+"/notes", note, String.class);
+        List<Note> notes = restTemplate.getForObject(endpoint+"/notes", List.class);
         model.addAttribute("noteList", notes);
         return "noteList";
     }
@@ -60,8 +64,8 @@ public class NoteController {
     @RequestMapping(value={"/noteClone","/noteClone/{id}"}, method = RequestMethod.GET)
     public String noteClone(Model model, @PathVariable(name = "id") Long id) {
         RestTemplate restTemplate = new RestTemplate();
-        restTemplate.getForObject("http://localhost:8080/noteClone/"+id, List.class);
-        List<Note> notes = restTemplate.getForObject("http://localhost:8080/notes", List.class);
+        restTemplate.getForObject(endpoint+"/noteClone/"+id, List.class);
+        List<Note> notes = restTemplate.getForObject(endpoint+"/notes", List.class);
         model.addAttribute("noteList", notes);
         return "noteList";
 
@@ -71,8 +75,8 @@ public class NoteController {
     @RequestMapping(value="/noteDelete/{id}", method = RequestMethod.GET)
     public String noteDelete(Model model, @PathVariable(required = true, name = "id") Long id) {
         RestTemplate restTemplate = new RestTemplate();
-        restTemplate.getForObject("http://localhost:8080/noteDelete/"+id, List.class);
-        List<Note> notes = restTemplate.getForObject("http://localhost:8080/notes", List.class);
+        restTemplate.getForObject(endpoint+"/noteDelete/"+id, List.class);
+        List<Note> notes = restTemplate.getForObject(endpoint+"/notes", List.class);
         model.addAttribute("noteList", notes);
         return "noteList";
     }

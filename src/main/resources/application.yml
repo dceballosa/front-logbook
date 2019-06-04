@@ -1,2 +1,6 @@
 server:
   port: 7777
+
+end-point:
+  api-logbook:
+    note: https://app-api-logbook.herokuapp.com
